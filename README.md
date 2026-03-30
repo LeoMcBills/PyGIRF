@@ -1,7 +1,25 @@
 # GIRF
-Code package to calculate and use the gradient impulse response function (GIRF) of an MRI gradient system. 
+Python package to calculate and use the gradient impulse response function (GIRF) of an MRI gradient system.
 
-The basic functionality for GIRF calculation and trajectory prediction is demonstrated in 'DemoGirf.m' in the test-folder. Make sure that the folders 'classes' and 'utils' are on the Matlab path. 
+## Installation
+
+```bash
+python3 -m pip install -e .
+```
+
+## Quick start
+
+Run the demo workflow:
+
+```bash
+python3 demo_girf.py
+```
+
+Use in Python:
+
+```python
+from girf import GirfProvider, GirfApplier
+```
 
 *If you use this code package for your research, please cite at least one of the following papers (depending on the use case):*  
 **Gradient system characterization**  

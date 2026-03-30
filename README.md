@@ -2,7 +2,10 @@
 Python package to calculate and use the gradient impulse response function (GIRF) of an MRI gradient system.
 
 ## Installation
-
+```bash
+uv 
+```
+Or:
 ```bash
 python3 -m pip install -e .
 ```
@@ -10,6 +13,9 @@ python3 -m pip install -e .
 ## Quick start
 
 Run the demo workflow:
+```bash
+uv run demo_girf.py
+```
 
 ```bash
 python3 demo_girf.py

@@ -3,10 +3,6 @@ Python package to calculate and use the gradient impulse response function (GIRF
 
 ## Installation
 ```bash
-uv 
-```
-Or:
-```bash
 python3 -m pip install -e .
 ```
 
@@ -16,7 +12,7 @@ Run the demo workflow:
 ```bash
 uv run demo_girf.py
 ```
-
+Or
 ```bash
 python3 demo_girf.py
 ```

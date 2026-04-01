@@ -1,0 +1,29 @@
+# Zensical documentation site — https://zensical.org/docs/create-your-site/
+# Preview: `zensical serve`  →  http://localhost:8000
+# Build:   `zensical build`  →  ./site
+
+[project]
+site_name = "PyGIRF"
+site_description = "PyGIRF — gradient impulse response function (GIRF) tools for MRI gradient systems — concepts, algorithm, and usage."
+# Use your real public URL when publishing (e.g. GitHub Pages); needed for some theme features (instant navigation, previews).
+site_url = "http://127.0.0.1:8000"
+site_author = "PyGIRF contributors"
+
+docs_dir = "docs"
+site_dir = "site"
+
+# Light / dark toggle (sun/moon next to search). See https://zensical.org/docs/setup/colors/
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+nav = [
+  { "Home" = "index.md" },
+  { "Concepts and algorithm" = "guide.md" },
+]

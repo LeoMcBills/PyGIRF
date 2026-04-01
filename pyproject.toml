@@ -3,14 +3,14 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "girf"
+name = "pygirf"
 version = "0.1.0"
-description = "Gradient impulse response function tools for MRI systems"
+description = "PyGIRF — gradient impulse response function tools for MRI systems"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
 authors = [
-  { name = "GIRF contributors" }
+  { name = "Leo Kinyera", email = "leokinyera81@gmail.com" }
 ]
 dependencies = [
   "numpy",
@@ -18,8 +18,18 @@ dependencies = [
   "matplotlib",
 ]
 
+[project.optional-dependencies]
+docs = [
+  "zensical>=0.0.31",
+]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[dependency-groups]
+dev = [
+    "zensical>=0.0.31",
+]

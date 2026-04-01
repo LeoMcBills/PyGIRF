@@ -9,3 +9,6 @@ venv/
 dist/
 build/
 *.egg-info/
+
+# Zensical static build output
+site/

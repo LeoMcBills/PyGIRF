@@ -20,7 +20,6 @@ Run a demo:
 
 ```bash
 python3 demo_pygirf.py
-python3 demo2.py
 ```
 
 Or with [uv](https://github.com/astral-sh/uv):
@@ -34,36 +33,6 @@ Use in Python:
 ```python
 from pygirf import GirfProvider, GirfApplier
 ```
-
-## Documentation site (Zensical)
-
-This site is built with [Zensical](https://zensical.org/docs/create-your-site/). From the repository root:
-
-```bash
-pip install zensical
-```
-
-Or install the package with the docs extra (declares Zensical in `pyproject.toml`):
-
-```bash
-pip install -e ".[docs]"
-```
-
-Then:
-
-```bash
-zensical serve
-```
-
-Open **http://localhost:8000** — the server rebuilds when you edit files under `docs/`.
-
-Static output:
-
-```bash
-zensical build
-```
-
-HTML is written to `site/` (ignored by git by default).
 
 ## Concepts and algorithm
 
@@ -86,5 +55,3 @@ Graedel, N.N., Kasper, L., Engel, M., Nussbaum, J., Wilm, B.J., Pruessmann, K.P.
 
 **GIRF-based pre-emphasis of gradient or shim channels**  
 Vannesjo, S.J., Duerst, Y., Vionnet, L., Dietrich, B.E., Pavan, M., Gross, S., Barmet, C., Pruessmann, K.P., 2017. Gradient and shim pre-emphasis by inversion of a linear time-invariant system model. *Magn Reson Med* 78, 1607–1622. <https://doi.org/10.1002/mrm.26531>
-
-The project README in the repository root mirrors installation and citations for GitHub browsing.

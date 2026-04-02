@@ -1,6 +1,6 @@
 # PyGIRF
 
-Gradient impulse response function (GIRF) tools in Python for MRI gradient systems. This code was ported from MATLAB by [jvannjo](https://github.com/jvannesjo). The original MATLAB project is [MRI-gradient/GIRF](https://github.com/MRI-gradient/GIRF).
+Gradient impulse response function (GIRF) tools in Python for MRI gradient systems. This code was ported from MATLAB which was initially written by [jvannjo](https://github.com/jvannesjo). The original MATLAB project is [MRI-gradient/GIRF](https://github.com/MRI-gradient/GIRF).
 
 ## Installation
 
@@ -43,7 +43,25 @@ pip install zensical
 zensical serve
 ```
 
-Open **http://localhost:8000** for a live preview. Build static HTML with `zensical build` (output in `site/`). Configure the site in `zensical.toml` (set `site_url` to your published URL when deploying, e.g. GitHub Pages).
+Open **http://localhost:8000** for a live preview. Build static HTML with `zensical build` (output in `site/`).
+
+### GitHub Pages (hosted documentation)
+
+The workflow [`.github/workflows/deploy-docs.yml`](.github/workflows/deploy-docs.yml) builds the Zensical site and deploys it with the official [GitHub Pages Actions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow).
+
+**One-time setup**
+
+1. On GitHub, open the repository → **Settings** → **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push to **`main`** or **`master`** (or run the workflow manually under **Actions** → **Deploy documentation** → **Run workflow**).
+
+After a successful run, the site is available at:
+
+`https://<your-github-username>.github.io/<repository-name>/`
+
+For example, if the repo is `github.com/octocat/PyGIRF`, the docs URL is `https://octocat.github.io/PyGIRF/`.
+
+The workflow sets `site_url` automatically for that URL so links, search, and sitemap stay correct. For local `zensical serve`, keep `site_url` in `zensical.toml` pointed at `http://127.0.0.1:8000` (or your dev URL).
 
 *If you use this code package for your research, please cite at least one of the following papers (depending on the use case):*  
 **Gradient system characterization**  

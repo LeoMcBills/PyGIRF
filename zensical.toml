@@ -5,7 +5,8 @@
 [project]
 site_name = "PyGIRF"
 site_description = "PyGIRF — gradient impulse response function (GIRF) tools for MRI gradient systems — concepts, algorithm, and usage."
-# Use your real public URL when publishing (e.g. GitHub Pages); needed for some theme features (instant navigation, previews).
+# Local preview. For production, GitHub Actions (`.github/workflows/deploy-docs.yml`) rewrites this to
+# https://<owner>.github.io/<repo>/ before `zensical build`. Zensical needs a correct site_url for search, sitemap, etc.
 site_url = "http://127.0.0.1:8000"
 site_author = "PyGIRF contributors"
 

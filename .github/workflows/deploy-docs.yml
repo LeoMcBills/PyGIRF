@@ -1,0 +1,80 @@
+# Build Zensical docs and deploy to GitHub Pages.
+# Repo Settings → Pages → Source: "GitHub Actions" (required once).
+
+name: Deploy documentation
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "docs/**"
+      - "zensical.toml"
+      - "pyproject.toml"
+      - ".github/workflows/deploy-docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -e ".[docs]"
+
+      # Project Pages URL: https://<owner>.github.io/<repo>/
+      - name: Set site_url for GitHub Pages
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: |
+          python3 << 'PY'
+          import os
+          url = os.environ["SITE_URL"].strip()
+          if not url.startswith("http"):
+              raise SystemExit("SITE_URL missing")
+          path = "zensical.toml"
+          out = []
+          with open(path, encoding="utf-8") as f:
+              for line in f:
+                  if line.strip().startswith("site_url"):
+                      out.append(f'site_url = "{url}"\n')
+                  else:
+                      out.append(line)
+          with open(path, "w", encoding="utf-8") as f:
+              f.writelines(out)
+          PY
+
+      - name: Build site
+        run: zensical build
+
+      - name: Add .nojekyll (skip Jekyll on GitHub Pages)
+        run: touch site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -10,6 +10,51 @@ python3 -m pip install -e .
 
 Installs the **`pygirf`** package from `src/pygirf/`.
 
+After [publishing to PyPI](#publish-to-pypi-production), install with:
+
+```bash
+pip install pygirf
+```
+
+## Publish to PyPI (production)
+
+### Option A — GitHub Actions (recommended)
+
+The workflow [`.github/workflows/publish-pypi.yml`](.github/workflows/publish-pypi.yml) builds and uploads to PyPI using **[trusted publishing](https://docs.pypi.org/trusted-publishers/)** (OIDC). You do **not** store a long-lived PyPI token in GitHub secrets.
+
+**One-time setup**
+
+1. On **PyPI**, open **[your project](https://pypi.org/manage/project/pygirf/settings/publishing/)** → **Publishing** → **Add a new pending publisher** (or manage existing).
+2. Choose **GitHub** as the publisher type and enter:
+   - **Owner:** your GitHub user or organization  
+   - **Repository name:** `PyGIRF` (or whatever the repo is called)  
+   - **Workflow name:** `publish-pypi.yml`  
+   - **Environment name:** leave blank unless you add a matching [GitHub Environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) later.
+3. Save. PyPI will trust that workflow to upload **`pygirf`**.
+
+**Each release**
+
+1. Bump **`version`** in `pyproject.toml` (PyPI rejects duplicate versions).
+2. Commit, then create and push a **tag** whose name starts with `v` and matches the release, e.g.:
+
+   ```bash
+   git tag v0.2.0
+   git push origin v0.2.0
+   ```
+
+3. Watch **Actions** → **Publish to PyPI** on GitHub. Confirm on **https://pypi.org/project/pygirf/**.
+
+### Option B — Manual upload (token)
+
+Use an API token from **https://pypi.org/manage/account/token/**. Username for uploads is always `__token__`; the password is the token string.
+
+```bash
+pip install build twine
+rm -rf dist && python -m build
+twine check dist/*
+TWINE_USERNAME=__token__ TWINE_PASSWORD=pypi-your-token-here twine upload dist/*
+```
+
 ## Quick start
 
 Run the demo workflow:
@@ -23,6 +68,8 @@ Or:
 ```bash
 python3 demo_pygirf.py
 ```
+
+That demo builds **synthetic** calibration data (band-limited “measured” outputs + noise), **fits** a GIRF, **predicts** the response to the same nominal gradients, and prints **relative RMSE** and **correlation** vs the synthetic ground truth (strong correlation on the dominant Z-like term shows the forward model matches the data you trained on).
 
 Use in Python:
 

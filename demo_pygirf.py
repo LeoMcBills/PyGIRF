@@ -60,6 +60,22 @@ def main() -> None:
     g_out, _, _ = applier.predict_grad(t_in, in_data[:, :, 0], t_out, ["Z"], "conv")
     print("Prediction complete", g_out.shape)
 
+    # Sanity check: predicted vs synthetic "measured" out (noise + smoothing keep RMSE > 0; correlation shows shape agreement)
+    def _rel_rmse(pred: np.ndarray, truth: np.ndarray) -> float:
+        d = pred - truth
+        return float(np.sqrt(np.mean(d * d)) / (np.sqrt(np.mean(truth * truth)) + 1e-30))
+
+    def _corr(a: np.ndarray, b: np.ndarray) -> float:
+        a = a - np.mean(a)
+        b = b - np.mean(b)
+        denom = np.sqrt(np.sum(a * a) * np.sum(b * b)) + 1e-30
+        return float(np.sum(a * b) / denom)
+
+    # demo puts self-term in column 3 (basis 4), cross in column 0 (basis 1); compare waveform 0
+    for name, j in [("Z / col 3", 3), ("cross / col 0", 0)]:
+        p, t = g_out[:, j], out[:, j, 0]
+        print(f"{name}: relative RMSE={_rel_rmse(p, t):.4f}, correlation={_corr(p, t):.4f}")
+
 
 if __name__ == "__main__":
     main()
